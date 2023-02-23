@@ -15,6 +15,7 @@ func main() {
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("0 - Sair do Programa")
 	var comando int
-	fmt.Scan(&comando)
+	var ptr *int = &comando
+	fmt.Scan(ptr)
 	fmt.Println("O comando escolhido foi", comando)
 }
