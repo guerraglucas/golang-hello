@@ -18,4 +18,15 @@ func main() {
 	var ptr *int = &comando
 	fmt.Scan(ptr)
 	fmt.Println("O comando escolhido foi", comando)
+
+	switch comando {
+	case 1:
+		fmt.Println("Monitorando...")
+	case 2:
+		fmt.Println("Exibindo Logs...")
+	case 0:
+		fmt.Println("Saindo do Programa...")
+	default:
+		fmt.Println("Não conheço este comando")
+	}
 }
