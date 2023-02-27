@@ -4,10 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
+
+const minutesToSleep = 5
+const timesToRepeat = 5
 
 func main() {
 	versao := 1.1
+
 	nome, idade := getNameAndAge()
 	printNameAndAge(nome, idade)
 	printVersion(versao)
@@ -56,15 +61,18 @@ func doWhatUserWants(userSelection int) {
 }
 
 func startMonitoring() {
+
 	fmt.Println("Monitorando...")
 	var listOfSites []string
-	site := "https://www.alura.com.br"
-	site2 := "https://random-status-code.herokuapp.com/"
-	listOfSites = append(listOfSites, site, site2)
-	for i := 0; i < len(listOfSites); i++ {
-		fmt.Println("Testando site", listOfSites[i])
-		monitorFeedback(listOfSites[i])
+	listOfSites = []string{"https://random-status-code.herokuapp.com/", "https://www.alura.com.br", "https://www.caelum.com.br", "https://www.google.com.br"}
+	for i := 0; i < timesToRepeat; i++ {
+		for _, site := range listOfSites {
+			fmt.Println("Testando", site)
+			monitorFeedback(site)
+		}
+		time.Sleep(minutesToSleep * time.Minute)
 	}
+	fmt.Println("")
 }
 
 func monitorFeedback(site string) {
