@@ -22,6 +22,16 @@ func main() {
 	}
 }
 
+func readSitesFromFile() []string {
+	var sites []string
+	file, err := os.Open("sites.txt")
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+	fmt.Println(file)
+	return sites
+}
+
 func getNameAndAge() (string, int) {
 	var nome string = "Lucas"
 	var idade int = 20
@@ -64,7 +74,7 @@ func startMonitoring() {
 
 	fmt.Println("Monitorando...")
 	var listOfSites []string
-	listOfSites = []string{"https://random-status-code.herokuapp.com/", "https://www.alura.com.br", "https://www.caelum.com.br", "https://www.google.com.br"}
+	listOfSites = readSitesFromFile()
 	for i := 0; i < timesToRepeat; i++ {
 		for _, site := range listOfSites {
 			fmt.Println("Testando", site)
@@ -76,7 +86,11 @@ func startMonitoring() {
 }
 
 func monitorFeedback(site string) {
-	response, _ := http.Get(site)
+	response, err := http.Get(site)
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
 	switch response.StatusCode {
 	case 200:
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
