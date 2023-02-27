@@ -2,19 +2,25 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
 func main() {
-	nome := "Lucas"
-	idade := 20
 	versao := 1.1
+	nome, idade := getNameAndAge()
 	printNameAndAge(nome, idade)
 	printVersion(versao)
+	for {
+		userSelection := getUserSelection()
+		doWhatUserWants(userSelection)
+	}
+}
 
-	userSelection := getUserSelection()
-
-	doWhatUserWants(userSelection)
+func getNameAndAge() (string, int) {
+	var nome string = "Lucas"
+	var idade int = 20
+	return nome, idade
 }
 
 func printNameAndAge(nome string, idade int) {
@@ -39,14 +45,51 @@ func getUserSelection() int {
 func doWhatUserWants(userSelection int) {
 	switch userSelection {
 	case 1:
-		fmt.Println("Monitorando...")
+		startMonitoring()
 	case 2:
-		fmt.Println("Exibindo Logs...")
+		showLogs()
 	case 0:
-		fmt.Println("Saindo do Programa...")
-		os.Exit(0)
+		exitProgramWithSuccess()
 	default:
-		fmt.Println("Não conheço este comando")
-		os.Exit(-1)
+		exitProgramWithError()
 	}
+}
+
+func startMonitoring() {
+	fmt.Println("Monitorando...")
+	var listOfSites []string
+	site := "https://www.alura.com.br"
+	site2 := "https://random-status-code.herokuapp.com/"
+	listOfSites = append(listOfSites, site, site2)
+	for i := 0; i < len(listOfSites); i++ {
+		fmt.Println("Testando site", listOfSites[i])
+		monitorFeedback(listOfSites[i])
+	}
+}
+
+func monitorFeedback(site string) {
+	response, _ := http.Get(site)
+	switch response.StatusCode {
+	case 200:
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	case 404:
+		fmt.Println("Site:", site, "não foi encontrado!")
+	default:
+		fmt.Println("Site:", site, "está com problemas. Status Code:", response.StatusCode)
+
+	}
+}
+
+func showLogs() {
+	fmt.Println("Exibindo Logs...")
+}
+
+func exitProgramWithSuccess() {
+	fmt.Println("Saindo do Programa...")
+	os.Exit(0)
+}
+
+func exitProgramWithError() {
+	fmt.Println("Saindo do Programa...")
+	os.Exit(-1)
 }
