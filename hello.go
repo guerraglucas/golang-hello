@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
 	"os"
@@ -28,7 +29,9 @@ func readSitesFromFile() []string {
 	if err != nil {
 		fmt.Println("Ocorreu um erro:", err)
 	}
-	fmt.Println(file)
+	reader := bufio.NewReader(file)
+	result, _ := reader.ReadString('\n')
+	fmt.Println(result)
 	return sites
 }
 
