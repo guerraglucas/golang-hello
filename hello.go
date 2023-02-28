@@ -3,13 +3,15 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
-const minutesToSleep = 5
-const timesToRepeat = 5
+const minutesToSleep = 1
+const timesToRepeat = 2
 
 func main() {
 	versao := 1.1
@@ -30,8 +32,17 @@ func readSitesFromFile() []string {
 		fmt.Println("Ocorreu um erro:", err)
 	}
 	reader := bufio.NewReader(file)
-	result, _ := reader.ReadString('\n')
-	fmt.Println(result)
+	for {
+		line, err := reader.ReadString('\n')
+		fmt.Println(line)
+		line = strings.TrimSpace(line)
+		sites = append(sites, line)
+		if err == io.EOF {
+			break
+		}
+	}
+	file.Close()
+	fmt.Println(sites)
 	return sites
 }
 
@@ -82,6 +93,9 @@ func startMonitoring() {
 		for _, site := range listOfSites {
 			fmt.Println("Testando", site)
 			monitorFeedback(site)
+		}
+		if i == timesToRepeat-1 {
+			break
 		}
 		time.Sleep(minutesToSleep * time.Minute)
 	}
