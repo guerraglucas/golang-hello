@@ -1,0 +1,12 @@
+2023/03/01 10:02:14 Site: https://random-status-code.herokuapp.com/ está com problemas. Às 2023-03-01 10:02:14.150864 -0300 -03 m=+3.736506126
+2023/03/01 10:02:14 Site: https://www.alura.com.br foi carregado com sucesso! Às 2023-03-01 10:02:14.639848 -0300 -03 m=+4.225512084
+2023/03/01 10:02:15 Site: https://www.caelum.com.br foi carregado com sucesso! Às 2023-03-01 10:02:15.421057 -0300 -03 m=+5.006756751
+2023/03/01 10:03:19 Site: https://random-status-code.herokuapp.com/ está com problemas. Às 2023-03-01 10:03:19.091374 -0300 -03 m=+68.679939418
+2023/03/01 10:03:19 Site: https://www.alura.com.br foi carregado com sucesso! Às 2023-03-01 10:03:19.489588 -0300 -03 m=+69.078170376
+2023/03/01 10:03:20 Site: https://www.caelum.com.br foi carregado com sucesso! Às 2023-03-01 10:03:20.023819 -0300 -03 m=+69.612426251
+2023/03/01 10:47:56 Site: https://random-status-code.herokuapp.com/ está com problemas. Às 01/03/2023 10:47:56
+2023/03/01 10:47:56 Site: https://www.alura.com.br foi carregado com sucesso! Às 01/03/2023 10:47:56
+2023/03/01 10:47:57 Site: https://www.caelum.com.br foi carregado com sucesso! Às 01/03/2023 10:47:57
+2023/03/01 10:48:58 Site: https://random-status-code.herokuapp.com/ está com problemas. Às 01/03/2023 10:48:58
+2023/03/01 10:48:58 Site: https://www.alura.com.br foi carregado com sucesso! Às 01/03/2023 10:48:58
+2023/03/01 10:48:59 Site: https://www.caelum.com.br foi carregado com sucesso! Às 01/03/2023 10:48:59

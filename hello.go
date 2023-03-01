@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -111,16 +112,33 @@ func monitorFeedback(site string) {
 	switch response.StatusCode {
 	case 200:
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
+		registerLogs(site, true)
 	case 404:
 		fmt.Println("Site:", site, "não foi encontrado!")
+		registerLogs(site, false)
 	default:
 		fmt.Println("Site:", site, "está com problemas. Status Code:", response.StatusCode)
-
+		registerLogs(site, false)
 	}
 }
 
 func showLogs() {
 	fmt.Println("Exibindo Logs...")
+	file, err := os.Open("log.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	reader := bufio.NewReader(file)
+	for {
+		line, err := reader.ReadString('\n')
+		line = strings.TrimSpace(line)
+		if err == io.EOF {
+			break
+		}
+		fmt.Println(line)
+
+	}
 }
 
 func exitProgramWithSuccess() {
@@ -131,4 +149,21 @@ func exitProgramWithSuccess() {
 func exitProgramWithError() {
 	fmt.Println("Saindo do Programa...")
 	os.Exit(-1)
+}
+
+func registerLogs(site string, status bool) {
+	file, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	log.SetOutput(file)
+
+	if status {
+		log.Println("Site:", site, "foi carregado com sucesso! Às", time.Now().Format("02/01/2006 15:04:05"))
+	} else {
+		log.Println("Site:", site, "está com problemas. Às", time.Now().Format("02/01/2006 15:04:05"))
+	}
+
 }
